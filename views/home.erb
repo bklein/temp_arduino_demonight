@@ -1,0 +1,37 @@
+	<script type="text/javascript">
+		google.load('visualization', '1.0', {'packages':['corechart']});
+		google.setOnLoadCallback(drawChart);
+		
+		
+		// draw chart
+		function drawChart(){
+			var data = google.visualization.arrayToDataTable([
+			['Time', 'Temp', 'Humidity']
+			<% @weathers.each do |weather| %>
+				,['<%= weather.timestamp %>', <%= weather.temp.to_i %>, <%= weather.humidity.to_i %>]
+			<% end %>
+			]);
+			
+			var options = { title: 'Home Temp'};
+			
+			var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+			chart.draw(data, options);
+		}
+		
+	</script>
+
+<table>
+<tr>
+	<th>Temperature</th>
+	<th>Humidity</th>
+	<th>Timestamp</th>
+</tr>
+<% @weathers.each do |weather| %>
+	<tr>
+		<td><%= weather.temp %></td>
+		<td><%= weather.humidity %></td>
+		<td><%= weather.timestamp %></td>
+	</tr>
+<% end %>
+</table>
+<div id="chart_div"></div>
