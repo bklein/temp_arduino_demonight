@@ -4,9 +4,21 @@ require 'serialport'
 require 'net/http'
 require 'uri'
 
+# get command line arguments
+if ARGV.length != 2
+	puts "Invalid number of arguments"
+	puts "Proper usage:"
+	puts "ruby daemon.rb [device string] [remote server]"
+	puts "ruby daemon.rb /dev/ttyUSB0 http://www.myserver.com"
+	exit
+end
+
+port_str = ARGV[0]
+url = ARGV[1]
+
 # values to come from command arguments
-url = "http://localhost:4567"
-port_str = '/dev/ttyACM0'
+#url = "http://localhost:4567"
+#port_str = '/dev/ttyACM0'
 #
 
 token = "qwerty6969"
